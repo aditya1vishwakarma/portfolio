@@ -1,5 +1,11 @@
 @import "tailwindcss";
 
+/* Mobile/desktop boundary. 740 sits in the gap between the widest phone in
+   portrait (440) plus phone-landscape stragglers (667, 736) and the narrowest
+   iPad (mini, 744), so no device lands on the threshold itself. Keep this in
+   sync with MOBILE_MAX in constants.ts — the JS branches read from there. */
+@custom-variant md (@media (width >= 740px));
+
 @theme {
     --color-background: #FBFAF8;
     --color-charcoal: #333333;
@@ -64,7 +70,7 @@
     }
 
     /* Wrap helpers for CDN image floating */
-    @media (min-width: 768px) {
+    @media (min-width: 740px) {
         .wrap-left {
             float: left;
             margin-right: 2rem;
@@ -79,7 +85,7 @@
         }
     }
     
-    @media (max-width: 767px) {
+    @media (max-width: 739px) {
         /* On mobile, disable floats to prevent text squishing and clipping */
         .wrap-left, .wrap-right {
             display: block;

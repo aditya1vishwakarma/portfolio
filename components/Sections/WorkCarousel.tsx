@@ -2,7 +2,7 @@
 import React, { useState, useEffect, useCallback, useRef } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Link } from 'react-router-dom';
-import { PROJECTS } from '../../constants';
+import { PROJECTS, PROJECT_COUNT, isMobileViewport } from '../../constants';
 import OptimizedImage from '../UI/OptimizedImage';
 
 import { ArrowRight } from 'lucide-react';
@@ -22,7 +22,7 @@ const WorkCarousel: React.FC = () => {
 
   // Responsive check
   useEffect(() => {
-    const checkMobile = () => setIsMobile(window.innerWidth < 768);
+    const checkMobile = () => setIsMobile(isMobileViewport());
     checkMobile();
     window.addEventListener('resize', checkMobile);
     return () => window.removeEventListener('resize', checkMobile);
@@ -120,7 +120,7 @@ const WorkCarousel: React.FC = () => {
             <ArrowRight size={14} className="transition-transform duration-300 group-hover:translate-x-1" />
           </Link>
           <span className="text-charcoal/40 font-mono text-sm tracking-widest">
-            {PROJECTS.length} projects so far
+            {PROJECT_COUNT} projects so far
           </span>
         </div>
       </div>

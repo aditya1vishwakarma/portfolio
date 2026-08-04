@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { motion as motionComponent, useSpring, useMotionValue } from 'framer-motion';
 import { ChevronUp } from 'lucide-react';
+import { isMobileViewport } from '../../constants';
 
 const motion = motionComponent as any;
 
@@ -67,7 +68,7 @@ const CircularScrollIndicator: React.FC = () => {
 
     const handleResize = () => {
       handleScroll();
-      setIsMobile(window.innerWidth < 1024);
+      setIsMobile(isMobileViewport());
       
       const article = document.querySelector('article');
       if (article) {

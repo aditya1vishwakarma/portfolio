@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { motion as motionComponent, AnimatePresence } from 'framer-motion';
 import * as ReactRouterDOM from 'react-router-dom';
 import { Project } from '../../types';
+import { isMobileViewport } from '../../constants';
 import { ArrowRight } from 'lucide-react';
 
 const { Link } = ReactRouterDOM as any;
@@ -15,9 +16,9 @@ const ArchivedProjectItem: React.FC<ArchivedProjectItemProps> = ({ project }) =>
     const [isExpanded, setIsExpanded] = useState<boolean>(false);
     const [isMobile, setIsMobile] = useState<boolean>(false);
 
-    // Detect mobile viewport (<600px)
+    // Detect mobile viewport (see MOBILE_MAX in constants)
     useEffect(() => {
-        const checkMobile = () => setIsMobile(window.innerWidth < 600);
+        const checkMobile = () => setIsMobile(isMobileViewport());
         checkMobile();
         window.addEventListener('resize', checkMobile);
         return () => window.removeEventListener('resize', checkMobile);

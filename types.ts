@@ -9,6 +9,7 @@ export interface Project {
   date: string;
   role: string;
   path: string; // Added to match Blog structure
+  isRedirect?: boolean; // Card that links elsewhere on the site, not a project itself
 }
 
 export interface BlogPost {
@@ -36,4 +37,17 @@ export interface MoodBoardItem {
   link?: string;
   orientation?: 'landscape' | 'portrait';
   cols?: number;
+}
+
+/**
+ * A single photograph shown in the mood board's "(Rest)" tab. Deliberately
+ * thinner than MoodBoardItem — these are just pictures, with no tags, links or
+ * descriptions to read. The layout derives everything else (size, position,
+ * timing) at runtime from the image's own aspect ratio.
+ */
+export interface RestPlate {
+  id: string;
+  imageUrl: string;
+  /** Optional one-liner shown beneath the photo (place, date, whatever). */
+  caption?: string;
 }

@@ -34,7 +34,9 @@ const About: React.FC = () => {
         <div className="w-full h-[1px] bg-charcoal/10 mb-10" />
 
         {/* Unboxed 3-Column Grid */}
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-8 md:gap-12 items-stretch">
+        {/* Two columns through the tablet range — three at 214px each leaves ~19
+            characters per line once p-8 is subtracted, which reads as a word ladder. */}
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 md:gap-12 items-stretch">
           {[
             {
               title: "My approach to the \"what\"",
@@ -59,24 +61,27 @@ const About: React.FC = () => {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ delay: index * 0.1 + 0.2, duration: 0.8 }}
-              className="h-full"
+              className={`h-full ${item.isInteractive ? 'md:col-span-2 lg:col-span-1' : ''}`}
             >
               {/* Conditional Wrapper: Link vs Div */}
               {item.isInteractive ? (
                 <Link to={item.path} className="block group h-full">
-                  <div className="relative p-8 rounded-3xl transition-colors duration-500 ease-[cubic-bezier(0.25,0.1,0.25,1.0)] group-hover:bg-[#3F6D0D]/5 h-full flex flex-col justify-between">
+                  {/* Tablet shows two columns, so this card spans the full row and
+                      reflows into a horizontal band — title, copy, arrow on one line —
+                      instead of standing tall beside an empty cell. Reverts at lg. */}
+                  <div className="relative p-8 rounded-3xl transition-colors duration-500 ease-[cubic-bezier(0.25,0.1,0.25,1.0)] group-hover:bg-[#3F6D0D]/5 h-full flex flex-col justify-between md:flex-row md:items-center md:gap-8 lg:flex-col lg:items-stretch lg:gap-0">
                     {/* Content Container */}
-                    <div className="relative z-10">
-                      <h3 className="font-serif text-2xl text-[#3F6D0D] mb-4">
+                    <div className="relative z-10 md:flex md:flex-1 md:items-baseline md:gap-6 lg:block">
+                      <h3 className="font-serif text-2xl text-[#3F6D0D] mb-4 md:mb-0 md:shrink-0 lg:mb-4">
                         {item.title}
                       </h3>
-                      <p className="text-charcoal/60 text-base leading-loose font-sans mb-8">
+                      <p className="text-charcoal/60 text-base leading-loose font-sans mb-8 md:mb-0 md:leading-relaxed lg:mb-8 lg:leading-loose">
                         {item.content}
                       </p>
                     </div>
 
                     {/* Animated Arrow Glyph - Bottom Right of the CARD */}
-                    <div className="flex justify-end items-end p-2 md:p-0">
+                    <div className="flex justify-end items-end p-2 md:p-0 md:shrink-0">
                       <span className="text-[#3F6D0D] transform transition-all duration-500 ease-[cubic-bezier(0.25,0.1,0.25,1.0)] opacity-0 -translate-x-4 group-hover:opacity-100 group-hover:translate-x-0">
                         <ArrowRight size={24} strokeWidth={1.5} />
                       </span>

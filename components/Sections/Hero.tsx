@@ -2,6 +2,7 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { motion as motionComponent, AnimatePresence, useMotionValue, useSpring, useTransform, useAnimationFrame } from 'framer-motion';
 import { ChevronDown } from 'lucide-react';
+import { isMobileViewport } from '../../constants';
 
 // Fix: Cast motion to any to resolve property existence type errors for SVG and HTML motion elements
 const motion = motionComponent as any;
@@ -27,8 +28,7 @@ const detectMaskMode = (): MaskMode => {
   return 'nested';
 };
 
-const MOBILE_BREAKPOINT = 600;
-const REVEAL_MS = 1500;   // cumulative moving-drag time before the overlay dissolves
+const REVEAL_MS = 1500;  // cumulative moving-drag time before the overlay dissolves
 const MOVE_EPS = 0.4;     // px/ms floor, so a resting finger accrues nothing
 const HIT_PADDING = 15;   // grab forgiveness around the visible circle
 const DESKTOP_REVEAL_DIST = 1600;
@@ -415,7 +415,7 @@ const Hero: React.FC = () => {
   const wasMobile = useRef<boolean | null>(null);
   useEffect(() => {
     const syncViewport = () => {
-      const mobile = window.innerWidth < MOBILE_BREAKPOINT;
+      const mobile = isMobileViewport();
       setIsMobile(mobile);
       isMobileRef.current = mobile;
       if (mobile) setShowRevealButton(false);
@@ -632,7 +632,7 @@ const Hero: React.FC = () => {
          tallest the viewport ever gets, so the sheet always reaches the true bottom edge.
          It's a min-height, not a height, so a browser without lvh just keeps the dvh box.
          Everything inside that needs to stay on screen is measured against dvh instead. */
-      className={`relative h-dvh max-[600px]:min-h-[100lvh] w-full flex flex-col justify-center items-center overflow-hidden bg-[#D4DCDA] ${!isMobile && isHovered && !isFullyRevealed && selectedImageIndex === null ? 'cursor-none' : ''}`}
+      className={`relative h-dvh max-[739px]:min-h-[100lvh] w-full flex flex-col justify-center items-center overflow-hidden bg-[#D4DCDA] ${!isMobile && isHovered && !isFullyRevealed && selectedImageIndex === null ? 'cursor-none' : ''}`}
       onMouseEnter={() => setIsHovered(true)}
       onMouseLeave={() => setIsHovered(false)}
     >

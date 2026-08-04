@@ -20,7 +20,7 @@ const BlogPreview: React.FC = () => {
           </p>
         </div>
         {/* Blog Cards Grid */}
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
           {BLOG_POSTS.slice(0, 3).map((post, index) => (
             <motion.div
               key={post.id}
@@ -31,7 +31,7 @@ const BlogPreview: React.FC = () => {
             >
               <Link to={post.path} className="block group h-full">
                 <article
-                  className="relative flex flex-col justify-between h-full aspect-[4/3] p-8 rounded-3xl bg-white border border-transparent transition-all duration-500 ease-[cubic-bezier(0.25,0.1,0.25,1.0)] group-hover:scale-[1.02] group-hover:border-moss/30"
+                  className="relative flex flex-col justify-between h-full min-h-[17.5rem] p-8 rounded-3xl bg-white border border-transparent transition-all duration-500 ease-[cubic-bezier(0.25,0.1,0.25,1.0)] group-hover:scale-[1.02] group-hover:border-moss/30"
                 >
                   <div>
                     <span className="text-[11px] uppercase tracking-[0.2em] text-moss/60 font-medium mb-4 block">
